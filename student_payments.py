@@ -99,7 +99,7 @@ class BackEnd:
         self.add_transaction(transaction)
         
         # Formulate the message as specified
-        message = f"Transaction for {student_name} of ${amount} for {date} is added successfully"
+        message = f"Transaction for {student_name} of ${amount} on {date} is added successfully"
 
         return {"status": "success", "message": message}
 

@@ -135,7 +135,6 @@ class MyApp(wx.Frame):
                 return
 
         self.Layout()  # Refresh the layout to display the new message properly
-        self.PostSizeEvent()
         self.Refresh()
 
     def on_combobox_change(self, event):
@@ -185,8 +184,7 @@ class MyApp(wx.Frame):
             self.transaction_date_entry.Hide()  # Hide transaction date field
             self.button.Show()
 
-        self.Layout()  # Refresh the layout based on visibility changes
-        self.PostSizeEvent()
+        self.Layout()
         self.Refresh()
 
     def validate_student_name(self, name):
@@ -213,6 +211,7 @@ class MyApp(wx.Frame):
 
 if __name__ == "__main__":
     app = wx.App(False)
-    frame = MyApp(None, "wxPython App with Dynamic Fields")
+    frame = MyApp(None, "Student management")
+    frame.SetSize((300, 400))
     frame.Show()
     app.MainLoop()
