@@ -7,7 +7,7 @@ class Transaction:
         self.student_id = student_id
         self.student_name = student_name
         self.amount = amount
-        self.date = date or datetime.now().strftime("%Y-%m-%d")
+        self.date = date or datetime.now().strftime("%m-%d-%Y")
         
 class Student:
     # A class to represent students
