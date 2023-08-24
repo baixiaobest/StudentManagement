@@ -43,11 +43,21 @@ class BackEnd:
         try:
             with open('transactions.csv', 'r') as file:
                 reader = csv.DictReader(file)
+                transactions = []
                 for row in reader:
-                    self.transactions.append(row)
-                    self.transactions[-1]['transaction_id'] = int(row['transaction_id'])
-                    self.transactions[-1]['student_id'] = int(row['student_id'])
-                    self.transactions[-1]['amount'] = float(row['amount'])
+                    transaction = dict(row)
+                    transaction['transaction_id'] = int(row['transaction_id'])
+                    transaction['student_id'] = int(row['student_id'])
+                    transaction['amount'] = float(row['amount'])
+                    transaction['date'] = datetime.strptime(row['date'], "%m-%d-%Y")
+                    transactions.append(transaction)
+
+                # Sort transactions by date
+                transactions.sort(key=lambda x: x['date'])
+
+                # Assign to the class attribute
+                self.transactions = transactions
+
         except FileNotFoundError:
             pass
     
