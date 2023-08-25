@@ -122,11 +122,12 @@ class MyApp(wx.Frame):
 
             # If no date is provided, use current date by default
             if not transaction_date:
-                transaction_date = datetime.now().strftime('%m-%d-%Y')
+                transaction_date = datetime.now()
             else:
                 if not self.validate_transaction_date(transaction_date):
                     wx.MessageBox("Invalid transaction date format. Please enter date in mm-dd-yyyy format or leave blank for current date.", "Error", wx.OK | wx.ICON_ERROR)
                     return
+                transaction_date = datetime.strptime(transaction_date, '%m-%d-%Y')
             
             if self.validate_transaction_amount(transaction_amount):
                 response = self.backend.add_transaction_api(student_name, float(transaction_amount), transaction_date)

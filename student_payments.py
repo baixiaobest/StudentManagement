@@ -7,7 +7,7 @@ class Transaction:
         self.student_id = student_id
         self.student_name = student_name
         self.amount = amount
-        self.date = date or datetime.now().strftime("%m-%d-%Y")
+        self.date = date or datetime.now()
         
 class Student:
     # A class to represent students
@@ -103,7 +103,7 @@ class BackEnd:
         
         # If date is not provided, use the current date
         if not date:
-            date = datetime.now().strftime('%m-%d-%Y')
+            date = datetime.now()
 
         transaction = Transaction(transaction_id, student_id, student_name, amount, date)
         self.add_transaction(transaction)
