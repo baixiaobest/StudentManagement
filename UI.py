@@ -105,7 +105,10 @@ class MyApp(wx.Frame):
             if response["status"] == "success":
                 balance_info = f"Showing student {student_name} info. Total balance: {response['balance']}\n"
                 
-                transaction_info = "\n".join([f"Transaction ID: {t['transaction_id']}, Amount: {t['amount']}, Date: {t['date']}" for t in response['transactions']])
+                transaction_info = "\n".join([
+                    f"Transaction ID: {t['transaction_id']}, Amount: {t['amount']}, Date: {t['date'].strftime('%m-%d-%y')}" 
+                    for t in response['transactions']
+                ])
                 
                 complete_info = balance_info + "\n" + transaction_info
                 self.status_msg.SetLabel(complete_info)
