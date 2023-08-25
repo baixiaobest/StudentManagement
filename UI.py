@@ -30,9 +30,6 @@ class MyApp(wx.Frame):
         vbox.Add(self.student_name_lbl, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
         vbox.Add(self.student_name_entry, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
         
-        # Initially hide the student name label and entry
-        self.student_name_lbl.Hide()
-        self.student_name_entry.Hide()
 
         # Transaction amount field
         self.transaction_amount_lbl = wx.StaticText(panel, label="Transaction Amount:")
@@ -46,17 +43,10 @@ class MyApp(wx.Frame):
         vbox.Add(self.transaction_date_lbl, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
         vbox.Add(self.transaction_date_entry, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
 
-        # Initially hide the transaction amount and date fields
-        self.transaction_amount_lbl.Hide()
-        self.transaction_amount_entry.Hide()
-        self.transaction_date_lbl.Hide()
-        self.transaction_date_entry.Hide()
-
         # Button
         self.button = wx.Button(panel, label="Submit")
         vbox.Add(self.button, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
         self.button.Bind(wx.EVT_BUTTON, self.on_button_click)
-        self.button.Hide()
 
         # Create a ScrolledWindow for status message
         self.status_window = wx.ScrolledWindow(panel, style=wx.VSCROLL)
@@ -77,6 +67,21 @@ class MyApp(wx.Frame):
         
         # Display all students' names and balances by default
         self.display_all_students()
+        
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.on_timer, self.timer)
+        self.timer.StartOnce(500)
+        
+    def on_timer(self, event):
+        # Initially hide the student name label and entry
+        self.student_name_lbl.Hide()
+        self.student_name_entry.Hide()
+        # Initially hide the transaction amount and date fields
+        self.transaction_amount_lbl.Hide()
+        self.transaction_amount_entry.Hide()
+        self.transaction_date_lbl.Hide()
+        self.transaction_date_entry.Hide()
+        self.button.Hide()
         
     def display_all_students(self):
         student_data = self.backend.show_all_students_api()
@@ -215,6 +220,6 @@ class MyApp(wx.Frame):
 if __name__ == "__main__":
     app = wx.App(False)
     frame = MyApp(None, "Student management")
-    frame.SetSize((300, 400))
+    frame.SetSize((400, 500))
     frame.Show()
     app.MainLoop()
