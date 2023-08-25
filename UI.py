@@ -106,7 +106,7 @@ class MyApp(wx.Frame):
                 balance_info = f"Showing student {student_name} info. Total balance: {response['balance']}\n"
                 
                 transaction_info = "\n".join([
-                    f"Transaction ID: {t['transaction_id']}, Amount: {t['amount']}, Date: {t['date'].strftime('%m-%d-%y')}" 
+                    f"Transaction ID: {t['transaction_id']}, Amount: {t['amount']}, Date: {t['date']}" 
                     for t in response['transactions']
                 ])
                 
@@ -122,12 +122,11 @@ class MyApp(wx.Frame):
 
             # If no date is provided, use current date by default
             if not transaction_date:
-                transaction_date = datetime.now()
+                transaction_date = datetime.now().strftime('%m-%d-%Y')
             else:
                 if not self.validate_transaction_date(transaction_date):
                     wx.MessageBox("Invalid transaction date format. Please enter date in mm-dd-yyyy format or leave blank for current date.", "Error", wx.OK | wx.ICON_ERROR)
                     return
-                transaction_date = datetime.strptime(transaction_date, '%m-%d-%Y')
             
             if self.validate_transaction_amount(transaction_amount):
                 response = self.backend.add_transaction_api(student_name, float(transaction_amount), transaction_date)

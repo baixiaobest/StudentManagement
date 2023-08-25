@@ -7,7 +7,7 @@ class Transaction:
         self.student_id = student_id
         self.student_name = student_name
         self.amount = amount
-        self.date = date or datetime.now()
+        self.date = date or datetime.now().strftime('%m-%d-%Y')
         
 class Student:
     # A class to represent students
@@ -49,7 +49,7 @@ class BackEnd:
                     transaction['transaction_id'] = int(row['transaction_id'])
                     transaction['student_id'] = int(row['student_id'])
                     transaction['amount'] = float(row['amount'])
-                    transaction['date'] = datetime.strptime(row['date'], "%m-%d-%Y")
+                    transaction['date'] = row['date']
                     transactions.append(transaction)
 
                 # Sort transactions by date
@@ -103,7 +103,7 @@ class BackEnd:
         
         # If date is not provided, use the current date
         if not date:
-            date = datetime.now()
+            date = datetime.now().strftime('%m-%d-%Y')
 
         transaction = Transaction(transaction_id, student_id, student_name, amount, date)
         self.add_transaction(transaction)
