@@ -49,7 +49,7 @@ class BackEnd:
                     transaction['transaction_id'] = int(row['transaction_id'])
                     transaction['student_id'] = int(row['student_id'])
                     transaction['amount'] = float(row['amount'])
-                    transaction['date'] = row['date']
+                    transaction['date'] = datetime.strptime(row['date'], '%m-%d-%Y').strftime('%m-%d-%Y')
                     transactions.append(transaction)
 
                 # Sort transactions by date

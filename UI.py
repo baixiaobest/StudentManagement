@@ -29,7 +29,6 @@ class MyApp(wx.Frame):
         self.student_name_entry = wx.TextCtrl(panel)
         vbox.Add(self.student_name_lbl, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
         vbox.Add(self.student_name_entry, flag=wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, border=10)
-        
 
         # Transaction amount field
         self.transaction_amount_lbl = wx.StaticText(panel, label="Transaction Amount:")
@@ -70,7 +69,7 @@ class MyApp(wx.Frame):
         
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.on_timer, self.timer)
-        self.timer.StartOnce(500)
+        self.timer.StartOnce(100)
         
     def on_timer(self, event):
         # Initially hide the student name label and entry
